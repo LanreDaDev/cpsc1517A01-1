@@ -4,6 +4,8 @@
 
     var language = Request.Form["languagegroup"];
     var script = Request.Form["scriptgroup"];
+    var thebutton = Request.Form["formbutton"];
+
     //the first time through language and script will be null
     //this will cause a problem on the check for the radio button
     //    test that retains the radiobutton select
@@ -14,7 +16,7 @@
     }
     if (string.IsNullOrEmpty(script))
     {
-        language = "";
+        script = "";
     }
 }
 @section banner{
@@ -23,35 +25,44 @@
 
 @if (IsPost)
 {
-    // demonstration validation is possible
-    if (string.IsNullOrEmpty(language) ||
-        string.IsNullOrEmpty(script))
+    //decide which button pressed
+    if (thebutton.Equals("Clear"))
     {
-        <p>
-            <span style="color:firebrick">
-                <strong>
-                    Choose from both language and scripting.
-                </strong>
-            </span>
-        </p>
+        language = "";
+        script = "";
     }
     else
     {
-        if (language.Equals("C#"))
+        // demonstration validation is possible
+        if (string.IsNullOrEmpty(language) ||
+            string.IsNullOrEmpty(script))
         {
-            <p>You will greatly enjoy CPSC1517 because we use C#.</p>
+            <p>
+                <span style="color:firebrick">
+                    <strong>
+                        Choose from both language and scripting.
+                    </strong>
+                </span>
+            </p>
         }
         else
         {
-            <p>Too bad. CPSC1517 uses C#.</p>
-        }
-        if (script.Equals("Razor"))
-        {
-            <p>You will greatly enjoy CPSC1517 because we use Razor.</p>
-        }
-        else
-        {
+            if (language.Equals("C#"))
+            {
+                <p>You will greatly enjoy CPSC1517 because we use C#.</p>
+            }
+            else
+            {
+                <p>Too bad. CPSC1517 uses C#.</p>
+            }
+            if (script.Equals("Razor"))
+            {
+                <p>You will greatly enjoy CPSC1517 because we use Razor.</p>
+            }
+            else
+            {
             <p>Too bad. CPSC1517 uses Razor.</p>
+            }
         }
     }
 }
@@ -84,6 +95,11 @@
             <button type="submit" id="formbutton" name="formbutton"
                     value="Submit" class="btn btn-primary">
                 Submit
+            </button>
+            &nbsp;&nbsp;
+            <button type="submit" id="formbutton" name="formbutton"
+                    value="Clear" class="btn">
+                Clear
             </button>
         </div>
     </div>
